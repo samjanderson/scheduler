@@ -23,18 +23,14 @@ export default function InterviewerList(props) {
 };
 
 
-// export default function DayList(props) {
-//   const days = props.days.map((day) => {
-//     return (
-//       <DayListItem
-//         key={day.id}
-//         name={day.name}
-//         spots={day.spots}
-//         selected={day.name === props.day}
-//         setDay={props.setDay}
-//       />
-//     );
-//   });
-//   return <ul>{days}</ul>;
-// }
+// \js export default function InterviewerList(props) {
+//   const interviewerList = props.interviewers.map(interviewer => (
+//     <InterviewerListItem
 
+//       key={interviewer.id}
+//       name={interviewer.name}
+//       avatar={interviewer.avatar}
+//       selected={props.interviewer === interviewer.id}
+//       setInterviewer={(event) => props.setInterviewer(interviewer.id)}
+//     />
+//   ));
