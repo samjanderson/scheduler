@@ -9,12 +9,11 @@ export default function InterviewerList(props) {
        key={interviewer.id}
        name={interviewer.name}
        avatar={interviewer.avatar}
-       selected={interviewer.id === props.selected} //unsure of these two pieces
+       selected={interviewer.id === props.interviewer} //unsure of these two pieces
        setInterviewer={props.setInterviewer} //unsure of these two pieces
        />
      )
-
-   })
+   });
   return (
     <section className="interviewers">
       <h4 className="interviewers__header text--light">Interviewer</h4>
