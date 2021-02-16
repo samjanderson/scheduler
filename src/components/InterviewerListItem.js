@@ -7,7 +7,7 @@ export default function InterviewerListItem(props) {
   const interviewerClass = classnames("interviewers__item", {
     "interviewers__item--selected": props.selected,
   });
-
+  //props selected and props name in the return because we only want to show the name when props.selected evaluates to true
   return (
     <li className={interviewerClass}
       onClick={props.setInterviewer}>
@@ -21,20 +21,3 @@ export default function InterviewerListItem(props) {
   );
 };
 
-
-// onClick={() => props.setDay(props.name)}
-//       className={dayClass}
-// const interviewer = {
-//   id: 1,
-//   name: "Sylvia Palmer",
-//   avatar: "https://i.imgur.com/LpaY82x.png"
-// };
-// storiesOf("InterviewerListItem", module)
-//   .addParameters({
-//     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
-//   })
-//   .add("UnClass", () => (
-//     <InterviewerListItem
-//       id={interviewer.id}
-//       name={interviewer.name}
-//       avatar={interviewer.avatar}
