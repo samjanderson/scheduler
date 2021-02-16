@@ -1,11 +1,11 @@
 import React from "react";
 
 import "components/DayListItem.scss";
-import classNames from "classnames";
+import classnames from "classnames";
 
 export default function DayListItem(props) {
   //this is a string that will always be there, so its something you want to have at the end
-  const dayClass = classNames("day-list__item", {
+  const dayClass = classnames("day-list__item", {
     "day-list__item--selected": props.selected,
     "day-list__item--full": props.spots === 0,
   });
