@@ -111,3 +111,5 @@ export default function Application(props) {
     </main>
   );
 }
+
+//set the ..appointments in last exercise of W7D2 in case anything needs to change
