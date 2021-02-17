@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
-export default function Form(props) {
-
+export default function Form({onCancel,...props}) {
+ console.log('props', props)
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
@@ -14,7 +14,7 @@ export default function Form(props) {
 
   function cancel() {
     reset()
-    props.onCancel()
+    onCancel()
   }
 
   return (
@@ -33,10 +33,10 @@ export default function Form(props) {
           */
           />
         </form>
-        <InterviewerList
+        <InterviewerList //each interviewlist item knows what the id is
           interviewers={props.interviewers}
           interviewer={interviewer}
-          setInterviewer={setInterviewer}
+          setInterviewer={setInterviewer} //passing down the setInterviewer function
         />
       </section>
       <section className="appointment__card-right">
