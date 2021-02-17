@@ -25,6 +25,7 @@ const appointments = [
     id: 3,
     time: "2pm",
   },
+  // },
   {
     id: 4,
     time: "3pm",
