@@ -14,6 +14,9 @@ export default function Appointment(props) {
   const SHOW = "SHOW";
   const CREATE = "CREATE";
 
+  //return value from useVisualMode has three keys the mode, transition and back
+  //good ol destructure to pull it out here
+  //useVisualMode keeping track of web pages you visit like your browser, pushes a new webpage into your history
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
