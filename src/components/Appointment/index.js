@@ -21,36 +21,38 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  //got this data from our form and now it is going to build an object out of it
+  //takes the object and passes it back up to the application
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    //call the applications book interview so this is how we get it back up to application
+    props.bookInterview(props.id, interview);
+  }
+
   return (
     <article className="appointment">
       <Header time={props.time} />
-      {mode === EMPTY && 
-      <Empty 
-      onAdd={() => transition(CREATE)} 
-      />}
+      {mode === EMPTY &&
+        <Empty
+          onAdd={() => transition(CREATE)}
+        />}
       {mode === SHOW && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
         />
       )}
-       {mode === CREATE && (
-          <Form 
+      {mode === CREATE && (
+        <Form
           interviewers={props.interviewers} //wil become {interviewers}
-          onSave={props.onSave} //what do I put in here?
-          onCancel={() => back(EMPTY)} 
-          />
+          onSave={save}
+          onCancel={() => back(EMPTY)}
+        />
       )}
     </article>
   );
 
 }
-
-
-
-
-// Update the Appointment component in index.js according to the following:
-
-// All Appointment components will render a Header that takes in a time prop.
-// If props.interview is truthy (an interview object) the Appointment will render the <Show /> component, else it should render the <Empty /> component.
-// Using ternary operator version of conditional rendering makes the most sense in this case  where we want to render Show or Empty based on props.interview.
