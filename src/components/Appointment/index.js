@@ -1,9 +1,11 @@
 import React from "react";
+
 import "components/Appointment/styles.scss";
 import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 import Form from "components/Appointment/Form";
+import Status from "components/Appointment/Status";
 import useVisualMode from "hooks/useVisualMode";
 // import useVisualMode from ".../../hooks/useVisualMode";
 
@@ -13,6 +15,7 @@ export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
+  const SAVING = "SAVING"
 
   //return value from useVisualMode has three keys the mode, transition and back
   //good ol destructure to pull it out here
@@ -28,8 +31,14 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
+    transition(SAVING)
     //call the applications book interview so this is how we get it back up to application
-    props.bookInterview(props.id, interview);
+     //transition to SHOW once props.bookinterview has successfully been called
+    props.bookInterview(props.id, interview)
+    .then(() => {
+      transition(SHOW)
+    })
+    .catch((err) => (console.log(err)))
   }
 
   return (
@@ -52,6 +61,7 @@ export default function Appointment(props) {
           onCancel={() => back(EMPTY)}
         />
       )}
+      {mode === SAVING && <Status message="Saving"/>}
     </article>
   );
 
