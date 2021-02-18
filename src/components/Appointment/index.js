@@ -33,7 +33,7 @@ export default function Appointment(props) {
       )}
        {mode === CREATE && (
           <Form 
-          interviewers={[]} //wil become {interviewers}
+          interviewers={props.interviewers} //wil become {interviewers}
           onSave={props.onSave} //what do I put in here?
           onCancel={() => back(EMPTY)} 
           />
