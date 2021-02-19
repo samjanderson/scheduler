@@ -19,7 +19,8 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
-  
+  const EDIT = "EDIT";
+
 
   //return value from useVisualMode has three keys the mode, transition and back
   //good ol destructure to pull it out here
@@ -47,14 +48,15 @@ export default function Appointment(props) {
 
   //WHAT IS MISSING??
   function cancel() {
+    transition(DELETING);
     props.cancelInterview(props.id)
       .then(() => {
-        transition(DELETING);
+        transition(EMPTY);
       })
       .catch((err) => (console.log(err)));
   }
 
-  
+
 
   return (
     <article className="appointment">
@@ -67,6 +69,8 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
         />
       )}
       {mode === CREATE && (
