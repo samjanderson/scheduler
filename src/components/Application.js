@@ -21,9 +21,10 @@ export default function Application(props) {
   //bring in helper functions
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
-  //they have const appointments = getAppointmentsForDay(state, day);
+
   function bookInterview(id, interview) {
     console.log('bookInterview', id, interview);
+    //here we use immutable patterns to update the state object
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -35,16 +36,16 @@ export default function Application(props) {
     };
 
     const url = `/api/appointments/${id}`;
-    console.log('URL', url);
     return axios.put(url, appointment)
       .then(response => {
         console.log(response);
-
+       //call setState with the new state object to apply changes
         setState({
           ...state,
           appointments
         });
       });
+
   }
 
 

@@ -41,9 +41,11 @@ export default function Appointment(props) {
     //transition to SHOW once props.bookinterview has successfully been called
     props.bookInterview(props.id, interview)
       .then(() => {
+        // console.log(props.id, interview)
         transition(SHOW);
       })
       .catch((err) => (console.log(err)));
+
   }
 
   //WHAT IS MISSING??
@@ -55,7 +57,6 @@ export default function Appointment(props) {
       })
       .catch((err) => (console.log(err)));
   }
-
 
 
   return (
@@ -88,6 +89,15 @@ export default function Appointment(props) {
           onConfirm={cancel}//not sure what to put here
           onCancel={back} //not sure what to put here
         />)}
+      {mode === EDIT && (
+        <Form
+          name={props.interview.student}
+          interviewers={props.interviewers}
+          interviewer={props.interview.interviewer.id}
+          onSave={save}
+          onCancel={() => back(SHOW)}
+        />
+      )}
     </article>
   );
 

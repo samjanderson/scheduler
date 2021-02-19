@@ -49,14 +49,14 @@ export function getInterview(state, interview) {
 
 
 //BETTER VERSION OF GETAPPTS
-// export function getAppointmentsForDay(state, day) {
-//   const filteredDays = state.days.find((dayObj) => dayObj.name === day);
-//   const apptArray = [];
-
-//   if (state.appointments && filteredDays) {
-//     filteredDays.appointments.forEach((appId) =>
-//       apptArray.push(state.appointments[appId])
-//     );
-//   }
-//   return apptArray;
+// export function getInterviewersForDay(state, day) {
+// const foundDay = state.days.find((days) => days.name === day);
+// if (state.days.length === 0 || foundDay === undefined) {
+//   return [];
 // }
+// return foundDay.appointments.map((id) => state.appointments[id]);
+
+// }
+
+
+
