@@ -7,6 +7,7 @@ import Empty from "components/Appointment/Empty";
 import Form from "components/Appointment/Form";
 import Status from "components/Appointment/Status";
 import Confirm from "components/Appointment/Confirm";
+import Error from "components/Appointment/Error";
 import useVisualMode from "hooks/useVisualMode";
 // import useVisualMode from ".../../hooks/useVisualMode";
 
@@ -20,6 +21,8 @@ export default function Appointment(props) {
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
+  const ERROR_SAVE = "ERROR_SAVE"
+  const ERROR_DELETE = "ERROR_DELETE"
 
 
   //return value from useVisualMode has three keys the mode, transition and back
@@ -44,18 +47,17 @@ export default function Appointment(props) {
         // console.log(props.id, interview)
         transition(SHOW);
       })
-      .catch((err) => (console.log(err)));
+      .catch(error => transition(ERROR_SAVE, true))
 
   }
 
-  //WHAT IS MISSING??
   function cancel() {
-    transition(DELETING);
+    transition(DELETING, true);
     props.cancelInterview(props.id)
       .then(() => {
         transition(EMPTY);
       })
-      .catch((err) => (console.log(err)));
+      .catch(error => transition(ERROR_DELETE, true))
   }
 
 
@@ -86,8 +88,8 @@ export default function Appointment(props) {
       {mode === CONFIRM && (
         <Confirm
           message="Are you sure you want to cancel this interview?"
-          onConfirm={cancel}//not sure what to put here
-          onCancel={back} //not sure what to put here
+          onConfirm={cancel}
+          onCancel={back} 
         />)}
       {mode === EDIT && (
         <Form
@@ -98,6 +100,16 @@ export default function Appointment(props) {
           onCancel={() => back(SHOW)}
         />
       )}
+      {mode === ERROR_SAVE && (
+      <Error 
+      message="Could not save appointment" 
+      onClose={back} //why just pack insteead of back(SHOW?)
+      />)}
+      {mode === ERROR_DELETE && ( 
+      <Error
+       message="Could not cancel appointment" 
+       onClose={back}
+       />)}
     </article>
   );
 
