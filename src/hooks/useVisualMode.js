@@ -17,7 +17,7 @@ export default function useVisualMode(initial) {
       });
       setMode(newMode);
     } else {
-      setHistory([...history, newMode]);
+      setHistory(prev => [...prev, newMode]);
       setMode(newMode);
     }
   }
@@ -42,30 +42,50 @@ export default function useVisualMode(initial) {
   return { mode, transition, back };
 }
 
-//GARY VERSION
+
+
 // export default function useVisualMode(initial) {
-//   const [history, setHistory] = useState([initial]);
+//   const [ history, setHistory ] = useState([initial]); //array with initial value
+//   // const [ "EMPTY" ] = useState(initial);
 
-//   function transition(newMode) {
+//   // function that will allow us to advance to any other mode
+//   const transition = (newMode, replace = false) => { // transition("EDIT", true) //second param a bolean 
 
-//    setHistory (prev => {
-//      return [...prev, newMode]
-//    })
+//     if (replace) {
+//       setHistory(prev => 
+//         [...prev.slice(0, prev.length-1), newMode] // replace the last element in history with newMode 
+//         //[EMPTY, EDIT]
+//         //[EMPTY, CREATE] 
+//         // "newMode", "replace"
+
+//       )
+//     } else {  // calling transition for non replace  transition("EDIT, false") //if Edit is false we're gonna add to it
+//       setHistory(prev => 
+//         [...prev, newMode] // add newMode to history 
+//         //[EMPTY, CREATE, EDIT]
+//       );
+//       console.log("History:", history);
+//     }
+//   }
+
+//   // function will allow us to return to the previous mode
+//   const back = () => {
+
+//     if (history.length > 1) {
+//       setHistory(prev => 
+//         [...prev.slice(0, prev.length-1)]
+//         //[EMPTY, CREATE]
+//         //--> [EMPTY]
+
+//       );
+//     };
 
 //   };
+//   console.log("This is the history:", history);
 
-//   function back() {
-
-//     setHistory(prev => {
-//       const newHistory = [...prev]
-//       newHistory.pop()
-//       return newHistory
-//     })
-//   }
-//   const mode = history.slice(-1)[0]
-//   return { mode, transition, back };
-// }
-
+//   const mode = history[history.length-1];
+//   return { mode: mode, transition, back };
+// };
 
 //.slice(-1) gives you a newarr with one item in it
 //history.slice(-1)[0] a cooler way to get the last item in an array as opposed to history[history.length - 1]

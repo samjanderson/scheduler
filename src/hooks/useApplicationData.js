@@ -28,12 +28,6 @@ export default function useApplicationData(props) {
     });
   }, []);
 
-  // useEffect(() => {
-  //   axios.put("/api/appointments/:id").then(response => {
-  //     console.log(response);
-  //   });
-  // }, []);
-
   const setDay = day => setState({ ...state, day });
 
   //function to update the state when booking an interview
@@ -78,49 +72,6 @@ export default function useApplicationData(props) {
       });
 
   }
-
-  // const state = {
-  //   days: [
-  //     {
-  //       id: 1,
-  //       name: "Monday",
-  //       appointments: [1, 2, 3],
-  //       interviewers: [1, 2],
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Tuesday",
-  //       appointments: [4, 5],
-  //     },
-  //   ],
-  //   appointments: {
-  //     1: { id: 1, time: "12pm", interview: null },
-  //     2: { id: 2, time: "1pm", interview: null },
-  //     3: {
-  //       id: 3,
-  //       time: "2pm",
-  //       interview: { student: "Archie Cohen", interviewer: 2 },
-  //     },
-  //     4: { id: 4, time: "3pm", interview: null },
-  //     5: {
-  //       id: 5,
-  //       time: "4pm",
-  //       interview: { student: "Chad Takahashi", interviewer: 2 },
-  //     },
-  //   },
-  //   interviewers: {
-  //     1: {
-  //       id: 1,
-  //       name: "Sylvia Palmer",
-  //       avatar: "https://i.imgur.com/LpaY82x.png",
-  //     },
-  //     2: {
-  //       id: 2,
-  //       name: "Tori Malcolm",
-  //       avatar: "https://i.imgur.com/Nmx0Qxo.png",
-  //     },
-  //   },
-  // };
 
   //result of state.days.find is our foundDay its gets us that specific day obj
   function calcSpotsRemaining(appointments, foundDay) {
@@ -183,9 +134,94 @@ export default function useApplicationData(props) {
   return { state, setDay, bookInterview, cancelInterview };
 }
 
+
+//FindIndex taught by the Great Andy to look up for reference
 // const array1 = [5, 12, 8, 130, 44];
 
 // const isLargeNumber = (element) => element > 13;
 
 // console.log(array1.findIndex(isLargeNumber));
 // // expected output: 3
+
+
+// UPDATE SPOTS CODE ALONG
+// null interview === spots available
+// count appts for day that have an empty interview
+// const updateSpots = function (day, days, appointments) { //days is an arr, appointments an obj, day is a string like Monday
+
+
+//   // find day object
+//   const dayObj = days.find(item => item.name === day);
+
+//   // get appointment array
+//   //iterate appointment array
+//   const appointmentIDs = dayObj.appointments //(now we have array of appts);
+//   let spots = 0; //let because we will be changing it
+//   for (const id of appointmentIDs) {
+//     const appointment = appointments[id];
+//     if (!appointment.interview) {
+//       spots++;
+//     }
+//   }
+
+//   //nothing has changed up to this point and below is where it gets dangerous
+//   //now we are changing dayObj 
+//   dayObj.spots = spots;
+
+//   // if interview is null result spots++
+//   // update the spots in the dayObj (which is part of days)
+//make sure to copy the original days so it updates state here
+//   const newDays = [...days]
+//   //now updateSpots returns a completely new days array with an updated day object that doesnt affect oroginal 
+//   return newDays;
+
+// };
+
+//now in his then
+//const days = updateSpots(state.day, state.days, appointments)
+//we replace appointments and days with new information of updated spots
+//setState(prev => {...prev, appointments, days})
+
+ //example data for reference
+  // const state = {
+  //   days: [
+  //     {
+  //       id: 1,
+  //       name: "Monday",
+  //       appointments: [1, 2, 3],
+  //       interviewers: [1, 2],
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "Tuesday",
+  //       appointments: [4, 5],
+  //     },
+  //   ],
+  //   appointments: {
+  //     1: { id: 1, time: "12pm", interview: null },
+  //     2: { id: 2, time: "1pm", interview: null },
+  //     3: {
+  //       id: 3,
+  //       time: "2pm",
+  //       interview: { student: "Archie Cohen", interviewer: 2 },
+  //     },
+  //     4: { id: 4, time: "3pm", interview: null },
+  //     5: {
+  //       id: 5,
+  //       time: "4pm",
+  //       interview: { student: "Chad Takahashi", interviewer: 2 },
+  //     },
+  //   },
+  //   interviewers: {
+  //     1: {
+  //       id: 1,
+  //       name: "Sylvia Palmer",
+  //       avatar: "https://i.imgur.com/LpaY82x.png",
+  //     },
+  //     2: {
+  //       id: 2,
+  //       name: "Tori Malcolm",
+  //       avatar: "https://i.imgur.com/Nmx0Qxo.png",
+  //     },
+  //   },
+  // };

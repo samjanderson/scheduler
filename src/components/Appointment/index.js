@@ -9,7 +9,7 @@ import Status from "components/Appointment/Status";
 import Confirm from "components/Appointment/Confirm";
 import Error from "components/Appointment/Error";
 import useVisualMode from "hooks/useVisualMode";
-// import useVisualMode from ".../../hooks/useVisualMode";
+
 
 
 export default function Appointment(props) {
@@ -103,7 +103,7 @@ export default function Appointment(props) {
       {mode === ERROR_SAVE && (
       <Error 
       message="Could not save appointment" 
-      onClose={back} //why just pack insteead of back(SHOW?)
+      onClose={back} 
       />)}
       {mode === ERROR_DELETE && ( 
       <Error
