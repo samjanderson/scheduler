@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function useApplicationData(props) {
@@ -28,6 +28,7 @@ export default function useApplicationData(props) {
     });
   }, []);
 
+
   const setDay = day => setState({ ...state, day });
 
   //function to update the state when booking an interview
@@ -39,7 +40,7 @@ export default function useApplicationData(props) {
       ...state.appointments[id],
       interview: { ...interview }
     };
-    //here we are spreading the OG appointsment object
+    //here we are spreading the OG appointments object
     //we reassign a particular keys value with that given appt we just booked
     const appointments = {
       ...state.appointments,
@@ -47,7 +48,7 @@ export default function useApplicationData(props) {
     };
 
     const url = `/api/appointments/${id}`;
-    return axios.put(url, appointment)
+    return axios.put(url, appointment) //url, {interview}
       .then(() => {
         //not props in here as state lives inside the custom hook
         //why dont we do state.appointments here?, it wont know that the interview has been cancelled so we need to pass in new appts
@@ -64,11 +65,11 @@ export default function useApplicationData(props) {
         //we do this in two steps because we cant push so we copy the array and then overwrite the index
         const copyOGStateDays = [...state.days];
         copyOGStateDays[dayIndex] = newDayObj;
-        setState({
-          ...state,
-          appointments,
-          days: copyOGStateDays //overwrite state of days with new day object
-        });
+        setState((prev) => ({
+           ...prev, 
+           appointments, 
+           days: copyOGStateDays 
+          }));
       });
 
   }
@@ -123,11 +124,11 @@ export default function useApplicationData(props) {
         //we do this in two steps because we cant push so we copy the array and then overwrite the index
         const copyOGStateDays = [...state.days];
         copyOGStateDays[dayIndex] = newDayObj;
-        setState({
-          ...state,
-          appointments,
-          days: copyOGStateDays //overwrite state of days with new day object
-        });
+        setState((prev) => ({ 
+          ...prev,
+           appointments, 
+           days: copyOGStateDays 
+          })); //overwrite state of days with new day Obj
       });
   };
 
@@ -177,10 +178,11 @@ export default function useApplicationData(props) {
 
 // };
 
-//now in his then
+//now in his then (this portion of the code goes inside your .then of your cancel appt and book appt)
 //const days = updateSpots(state.day, state.days, appointments)
 //we replace appointments and days with new information of updated spots
-//setState(prev => {...prev, appointments, days})
+//here you will remove your original setState call and update it to also take in the new days
+//setState(prev => ({...prev, appointments, days}))
 
  //example data for reference
   // const state = {

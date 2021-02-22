@@ -41,7 +41,7 @@ export default function Appointment(props) {
     };
     transition(SAVING);
     //call the applications book interview so this is how we get it back up to application
-    //transition to SHOW once props.bookinterview has successfully been called
+   
     props.bookInterview(props.id, interview)
       .then(() => {
         // console.log(props.id, interview)

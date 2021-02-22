@@ -8,7 +8,7 @@ export default function useVisualMode(initial) {
 
     if (replace) {
       //before we were mutating history now we use callback version to make a copy
-      // history[history.length - 1] = newMode; 
+      //this was previous version: history[history.length - 1] = newMode; 
       setHistory(prev => { //now we arent affecting the original array because we spread it
         const copy = [...prev];
         copy[copy.length - 1] = newMode;
@@ -26,19 +26,19 @@ export default function useVisualMode(initial) {
     if (history.length > 1) {
 
       setHistory(prev => {
+        //once again we make sure to spread array to not pop and mutate the original state
         const copy = [...prev];
-        //console.log(copy)
         copy.pop();
         return copy;
       });
-      //mutating original history
+      //here we were mutating original history
       // history.pop();
       //we are popping off the copy so the original history is unaffected so we need -2 instead of -1
       const prev = history[history.length - 2];
       setMode(prev);
     }
   }
-  //set this as mode: history[history.length -1] in your return
+  //set this as mode: history[history.length -1] in your return and then you can remove mode and set mode
   return { mode, transition, back };
 }
 
