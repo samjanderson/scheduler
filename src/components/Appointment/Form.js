@@ -3,22 +3,29 @@ import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
 export default function Form(props) {
- console.log('props', props)
+  console.log('props', props);
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState("");
 
   function reset() {
     setName("");
-    setInterviewer(null)
+    setInterviewer(null);
   }
 
   function cancel() {
-    reset()
-    props.onCancel()
+    reset();
+    props.onCancel();
   }
 
-  const onClick = () => {
-    props.onSave(name, interviewer)
+
+  function validate() {
+    if (name === "") {
+      setError("Student name cannot be blank");
+      return; //this will stop the validate function so props.onSave never gets called
+    }
+
+    props.onSave(name, interviewer);
   }
 
   return (
@@ -28,16 +35,15 @@ export default function Form(props) {
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
-            value={name}
             type="text"
             placeholder="Enter Student Name"
+            value={name}
             onChange={(event) => setName(event.target.value)}
-          /*
-            This must be a controlled component
-          */
+            data-testid="student-name-input"
           />
         </form>
-        <InterviewerList //each interviewlist item knows what the id is
+        <section className="appointment__validation">{error}</section> 
+        <InterviewerList //each interviewlist item knows what the id is, above is just rendering the error
           interviewers={props.interviewers}
           interviewer={interviewer}
           setInterviewer={setInterviewer} //passing down the setInterviewer function
@@ -46,7 +52,7 @@ export default function Form(props) {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel} >Cancel</Button>
-          <Button confirm onClick={onClick}>Save</Button>
+          <Button confirm onClick={validate}>Save</Button>
         </section>
       </section>
     </main>
