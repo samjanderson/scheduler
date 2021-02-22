@@ -24,7 +24,7 @@ export default function Form(props) {
       setError("Student name cannot be blank");
       return; //this will stop the validate function so props.onSave never gets called
     }
-
+    setError("");
     props.onSave(name, interviewer);
   }
 
