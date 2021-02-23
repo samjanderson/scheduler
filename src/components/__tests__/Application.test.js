@@ -1,5 +1,5 @@
 import React from "react";
-// import axios from "axios";
+import axios from "axios";
 
 import {
   render,
@@ -118,7 +118,7 @@ describe("Application", () => {
 
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
     // 1. Render the Application.
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
 
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
@@ -134,14 +134,12 @@ describe("Application", () => {
 
     expect(getByDisplayValue(appointment, "Archie Cohen"));
 
-    debug();
-
     // 5. Change value of form from Archie Cohen to a new student name
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
       target: { value: "Lydia Miller-Jones" }
     });
     // 6. Click on an interviewer name and save the appointment
-    
+
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     fireEvent.click(getByText(appointment, "Save"));
@@ -161,6 +159,86 @@ describe("Application", () => {
     );
 
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+  });
+
+
+  it("shows the save error when failing to save an appointment", async () => {
+    axios.put.mockRejectedValueOnce();
+
+    //all the steps are the same from booking an appt test up to saving the appointment
+
+    const { container, debug } = render(<Application />);
+
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    const appointments = getAllByTestId(container, "appointment");
+    const appointment = appointments[0];
+
+    fireEvent.click(getByAltText(appointment, "Add"));
+
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+    fireEvent.click(getByText(appointment, "Save"));
+
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+    //here is where the flow changes, instead of seeing the student name in the appointment we should see the error message
+
+    await waitForElement(() => getByText(appointment, "Could not save appointment"));
+
+    expect(getByText(appointment, "Could not save appointment")).toBeInTheDocument();
+
+    fireEvent.click(getByAltText(appointment, "Close"));
+
+    debug()
+
+      expect(getByPlaceholderText(appointment, /enter student name/i)).toBeInTheDocument();
+
+    // debug()
+  });
+
+  it("shows the delete error when failing to delete an existing appointment", async () => {
+    axios.delete.mockRejectedValueOnce();
+
+      // 1. Render the Application. 
+      const { container, debug } = render(<Application />);
+
+      // 2. Wait until the text "Archie Cohen" is displayed.
+      await waitForElement(() => getByText(container, "Archie Cohen"));
+  
+      // 3. Click the "Delete" button on the booked appointment.
+      const appointment = getAllByTestId(container, "appointment").find(
+        appointment => queryByText(appointment, "Archie Cohen")
+      );
+  
+      fireEvent.click(queryByAltText(appointment, "Delete"));
+  
+      // 4. Check that the confirmation message is shown.
+  
+      expect(getByText(appointment, "Are you sure you want to cancel this interview?")).toBeInTheDocument();
+  
+      // 5. Click the "Confirm" button on the confirmation.
+  
+      fireEvent.click(queryByText(appointment, "Confirm"));
+  
+      // 6. Check that the element with the text "Deleting" is displayed.
+  
+      expect(getByText(appointment, "Deleting")).toBeInTheDocument();
+  
+      // 7. Everything is the same here up until for deleting an appointment until they hit the bug
+  
+      await waitForElement(() => getByText(appointment, "Could not cancel appointment"));
+
+      expect(getByText(appointment, "Could not cancel appointment")).toBeInTheDocument();
+
+      fireEvent.click(getByAltText(appointment, "Close"));
+
+      expect(getByText(appointment, "Archie Cohen")).toBeInTheDocument();
+
+      // debug()
   });
 
 
