@@ -15,7 +15,7 @@ export default function useApplicationData(props) {
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),
-      axios.get("api/interviewers")
+      axios.get("/api/interviewers")
     ]).then((all) => {
       // const [first, second] = all;
       // console.log(first, second);
@@ -46,7 +46,7 @@ export default function useApplicationData(props) {
       ...state.appointments,
       [id]: appointment
     };
-
+     
     const url = `/api/appointments/${id}`;
     return axios.put(url, appointment) //url, {interview}
       .then(() => {
@@ -134,6 +134,42 @@ export default function useApplicationData(props) {
 
   return { state, setDay, bookInterview, cancelInterview };
 }
+
+
+//changing appointment and appointments to use state properly as per Andy
+//
+// Right now, you're taking advantage of the implicit return:
+// setState((prev) => ({
+//   ...prev,
+//   appointments,
+//   days: copyOGStateDays
+// }));
+// We need to use the whole syntax so that we can create our appointment and appointments.
+// setState((prev) => {
+//   return {
+//     ...prev,
+//     appointments,
+//     days: copyOGStateDays
+//   };
+// });
+// Now we have a function we can paste our two constants into and spread prev instead of state
+// // final outcome
+// setState((prev) => {
+//   const appointment = {
+//     ...prev.appointments[id],
+//     interview: null,
+//   };
+//   const appointments = {
+//     ...prev.appointments,
+//     [id]: appointment,
+//   };
+//   return {
+//     ...prev,
+//     appointments,
+//     days: copyOGStateDays
+//   };
+// });
+
 
 
 //FindIndex taught by the Great Andy to look up for reference

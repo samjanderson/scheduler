@@ -31,8 +31,9 @@ export default function DayListItem(props) {
 
 
   return (
-    <li onClick={props.setDay} //data-testid="day" //onClicks job is to call a function, if someone clicks on this day, call this function
+    <li onClick={props.setDay} //onClicks job is to call a function, if someone clicks on this day, call this function
       className={dayClass}
+      data-testid="day"
     >
       <h2 className="text--regular">{props.name}</h2>
       <h3 className="text--light">{formatSpots()}</h3>
