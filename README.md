@@ -11,6 +11,7 @@ The appointments section on the app is made up of various components that render
 !["Creating Appointment"](https://github.com/samjanderson/scheduler/blob/master/docs/creating-appt.png?raw=true)
 !["Cancel Appointment"](https://github.com/samjanderson/scheduler/blob/master/docs/cancel-appt.png?raw=true)
 !["Error Mode"](https://github.com/samjanderson/scheduler/blob/master/docs/error-mode.png?raw=true)
+!["Error Mode"](https://github.com/samjanderson/scheduler/blob/master/docs/User%20Flow%20Movie.gif?raw=true)
 
 
 ## Setup
