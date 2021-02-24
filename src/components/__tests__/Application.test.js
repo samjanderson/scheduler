@@ -7,7 +7,6 @@ import {
   waitForElement,
   fireEvent,
   getByText,
-  prettyDOM,
   getAllByTestId,
   getByAltText,
   getByPlaceholderText,
@@ -21,9 +20,6 @@ import Application from "components/Application";
 
 afterEach(cleanup);
 
-// it("renders without crashing", () => {
-//   render(<Application />);
-// });
 
 describe("Application", () => {
 
@@ -66,11 +62,6 @@ describe("Application", () => {
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
 
     //how to remove warnings from gary one of two options
-    // const result = await waitForElement(() => getByText(container, "Lydia Miller-Jones"));
-
-    // return result
-
-    // or
 
     // const result = waitForElement(() => getByText(container, "Lydia Miller-Jones"));
     // return await result
@@ -167,7 +158,7 @@ describe("Application", () => {
 
     //all the steps are the same from booking an appt test up to saving the appointment
 
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
@@ -193,52 +184,49 @@ describe("Application", () => {
 
     fireEvent.click(getByAltText(appointment, "Close"));
 
-    debug()
+    expect(getByPlaceholderText(appointment, /enter student name/i)).toBeInTheDocument();
 
-      expect(getByPlaceholderText(appointment, /enter student name/i)).toBeInTheDocument();
 
-    // debug()
   });
 
   it("shows the delete error when failing to delete an existing appointment", async () => {
     axios.delete.mockRejectedValueOnce();
 
-      // 1. Render the Application. 
-      const { container, debug } = render(<Application />);
+    // 1. Render the Application. 
+    const { container } = render(<Application />);
 
-      // 2. Wait until the text "Archie Cohen" is displayed.
-      await waitForElement(() => getByText(container, "Archie Cohen"));
-  
-      // 3. Click the "Delete" button on the booked appointment.
-      const appointment = getAllByTestId(container, "appointment").find(
-        appointment => queryByText(appointment, "Archie Cohen")
-      );
-  
-      fireEvent.click(queryByAltText(appointment, "Delete"));
-  
-      // 4. Check that the confirmation message is shown.
-  
-      expect(getByText(appointment, "Are you sure you want to cancel this interview?")).toBeInTheDocument();
-  
-      // 5. Click the "Confirm" button on the confirmation.
-  
-      fireEvent.click(queryByText(appointment, "Confirm"));
-  
-      // 6. Check that the element with the text "Deleting" is displayed.
-  
-      expect(getByText(appointment, "Deleting")).toBeInTheDocument();
-  
-      // 7. Everything is the same here up until for deleting an appointment until they hit the bug
-  
-      await waitForElement(() => getByText(appointment, "Could not cancel appointment"));
+    // 2. Wait until the text "Archie Cohen" is displayed.
+    await waitForElement(() => getByText(container, "Archie Cohen"));
 
-      expect(getByText(appointment, "Could not cancel appointment")).toBeInTheDocument();
+    // 3. Click the "Delete" button on the booked appointment.
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
 
-      fireEvent.click(getByAltText(appointment, "Close"));
+    fireEvent.click(queryByAltText(appointment, "Delete"));
 
-      expect(getByText(appointment, "Archie Cohen")).toBeInTheDocument();
+    // 4. Check that the confirmation message is shown.
 
-      // debug()
+    expect(getByText(appointment, "Are you sure you want to cancel this interview?")).toBeInTheDocument();
+
+    // 5. Click the "Confirm" button on the confirmation.
+
+    fireEvent.click(queryByText(appointment, "Confirm"));
+
+    // 6. Check that the element with the text "Deleting" is displayed.
+
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
+
+    // 7. Everything is the same here up until for deleting an appointment until they hit the bug
+
+    await waitForElement(() => getByText(appointment, "Could not cancel appointment"));
+
+    expect(getByText(appointment, "Could not cancel appointment")).toBeInTheDocument();
+
+    fireEvent.click(getByAltText(appointment, "Close"));
+
+    expect(getByText(appointment, "Archie Cohen")).toBeInTheDocument();
+
   });
 
 

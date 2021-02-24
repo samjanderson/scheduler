@@ -65,28 +65,3 @@ export default function Application(props) {
     </main>
   );
 }
-
-//set the ..appointments in last exercise of W7D2 in case anything needs to change
-
-
-//OLD STRUCTURE FOR REFERENCE
- // const appointments = getAppointmentsForDay(state, state.day)
-
-
-// <section className="schedule">
-// {appointments.map((appointment) => {
-//   const interview = getInterview(state, appointment.interview);
-//   return (
-//     <Appointment
-//       key={appointment.id}
-//       id={appointment.id}
-//       time={appointment.time}
-//       interview={interview}
-//       interviewers={interviewers}
-//       bookInterview={bookInterview}
-//       cancelInterview={cancelInterview}
-//     />
-//   );
-// })}
-// <Appointment key="last" time="5pm" />
-// </section> 

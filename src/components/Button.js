@@ -3,19 +3,12 @@ import "components/Button.scss";
 import classnames from "classnames";
 
 export default function Button(props) {
-   // let buttonClass = "button";
+
    const buttonClass = classnames("button", {
       "button--confirm": props.confirm,
       "button--danger": props.danger
    });
 
-   // if (props.confirm) {
-   //    buttonClass += " button--confirm";
-   // }
-
-   // if (props.danger) {
-   //    buttonClass += " button--danger";
-   // }
    return <button
       className={buttonClass}
       onClick={props.onClick}
@@ -26,5 +19,11 @@ export default function Button(props) {
 }
 
 
+   //BEFORE REFACTOR in line 7 this is how we did if else for adding button classes
+   // if (props.confirm) {
+   //    buttonClass += " button--confirm";
+   // }
 
-
+   // if (props.danger) {
+   //    buttonClass += " button--danger";
+   // }

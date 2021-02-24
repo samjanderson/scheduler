@@ -9,25 +9,14 @@ export default function DayListItem(props) {
     "day-list__item--selected": props.selected,
     "day-list__item--full": props.spots === 0,
   });
- 
+
   const formatSpots = function () {
     return props.spots === 0
       ? "no spots remaining"
       : props.spots === 1
-      ? "1 spot remaining"
-      : `${props.spots} spots remaining`;
+        ? "1 spot remaining"
+        : `${props.spots} spots remaining`;
   };
-
-
-  // const formatSpots = () => {
-  //   if (props.spots === 0) {
-  //     return "no spots remaining";
-  //   } else if (props.spots === 1) {
-  //     return "1 spot remaining";
-  //   } else {
-  //     return props.spots + " spots remaining";
-  //   }
-  // };
 
 
   return (
@@ -40,3 +29,14 @@ export default function DayListItem(props) {
     </li>
   );
 }
+
+//OLD format spots before refactor for reference
+// const formatSpots = () => {
+  //   if (props.spots === 0) {
+  //     return "no spots remaining";
+  //   } else if (props.spots === 1) {
+  //     return "1 spot remaining";
+  //   } else {
+  //     return props.spots + " spots remaining";
+  //   }
+  // };
