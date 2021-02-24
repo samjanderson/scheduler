@@ -8,10 +8,11 @@ PostgreSQL is used as the database. Jest, Cypress and Storybook were also all us
 
 The appointments section on the app is made up of various components that render depending on the state.
 
+!["User Walkthrough"](https://github.com/samjanderson/scheduler/blob/master/docs/User%20Flow%20Movie.gif?raw=true)
 !["Creating Appointment"](https://github.com/samjanderson/scheduler/blob/master/docs/creating-appt.png?raw=true)
 !["Cancel Appointment"](https://github.com/samjanderson/scheduler/blob/master/docs/cancel-appt.png?raw=true)
 !["Error Mode"](https://github.com/samjanderson/scheduler/blob/master/docs/error-mode.png?raw=true)
-!["Error Mode"](https://github.com/samjanderson/scheduler/blob/master/docs/User%20Flow%20Movie.gif?raw=true)
+
 
 
 ## Setup
